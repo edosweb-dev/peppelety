@@ -368,13 +368,36 @@
   /* ─────────────────────────────────────────
      GIFT
   ───────────────────────────────────────── */
-  .gift-text {
-    font-size: clamp(.95rem, 3vw, 1.05rem);
-    color: var(--text);
-    line-height: 1.9;
-    margin-top: 2rem;
-    margin-bottom: 3rem;
-    font-weight: 300;
+  .gift-quote {
+    position: relative;
+    margin: 2.5rem auto 3rem;
+    max-width: 520px;
+    padding: 2.2rem 2rem 2rem;
+    background: rgba(255,255,255,.7);
+    border-radius: 16px;
+    box-shadow: 0 2px 24px rgba(42,74,127,.08);
+  }
+  .gift-quote::before {
+    content: '\201C';
+    font-family: 'Caveat', cursive;
+    font-size: 5rem;
+    line-height: 1;
+    color: var(--gold);
+    opacity: .5;
+    position: absolute;
+    top: -.5rem;
+    left: 1.2rem;
+  }
+  .gift-quote p {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.25rem, 4vw, 1.6rem);
+    color: var(--navy);
+    line-height: 1.6;
+    font-weight: 600;
+  }
+  .gift-quote em {
+    font-style: normal;
+    color: var(--blue);
   }
 
   .bank-rows {
@@ -633,12 +656,17 @@
     <h2 class="section-title">Un pensiero per noi</h2>
     <div class="section-rule"></div>
 
-    <p class="gift-text">
-      La vostra presenza e il vostro affetto è il regalo più grande che possiate farci.<br/>
-      Se volete lasciarci un pensiero, vi saremo grati di un contributo<br/>
-      per la nostra luna di miele e per il completamento della nostra casa,<br/>
-      dimora del nostro futuro insieme.
-    </p>
+    <div class="gift-quote">
+      <p>
+        La vostra presenza e il vostro affetto<br/>
+        sono il regalo più grande che possiate farci.<br/><br/>
+        Se volete lasciarci un pensiero,<br/>
+        vi saremo grati per un contributo<br/>
+        alla nostra <em>luna di miele</em><br/>
+        e al completamento della nostra <em>casa</em>,<br/>
+        dimora del nostro futuro insieme.
+      </p>
+    </div>
 
     <div class="bank-rows">
 
