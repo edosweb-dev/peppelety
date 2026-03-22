@@ -45,6 +45,7 @@
     overflow: hidden;
     background: #1a1a1a;
   }
+  #hero > * { flex-shrink: 0; }
 
   .hero-photo {
     width: 100%;
@@ -55,14 +56,14 @@
     object-position: center top;
   }
 
-  /* gradient overlay bottom */
+  /* gradient overlay — strong top + bottom for readability */
   .hero-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
       to bottom,
-      rgba(0,0,0,.08)  0%,
-      rgba(0,0,0,.0)   35%,
+      rgba(0,0,0,.55)  0%,
+      rgba(0,0,0,.15)  40%,
       rgba(0,0,0,.55)  70%,
       rgba(0,0,0,.82) 100%
     );
@@ -71,9 +72,21 @@
   .hero-content {
     position: relative;
     z-index: 2;
-    margin-top: auto;
-    padding: 2rem 1.8rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    padding: 2.5rem 1.8rem 3rem;
     text-align: center;
+  }
+
+  .hero-top {
+    width: 100%;
+  }
+
+  .hero-bottom {
+    width: 100%;
   }
 
   .hero-tag {
@@ -523,18 +536,21 @@
   <div class="hero-overlay"></div>
 
   <div class="hero-content">
-    <span class="hero-tag">✦ Save the Date ✦</span>
-    <h1 class="hero-names">
-      Giuseppe<br/>
-      <span class="hero-amp">&amp;</span><br/>
-      Letizia
-    </h1>
-    <div class="hero-date-row">
-      <div class="hero-dot"></div>
-      <p class="hero-date">23 · 05 · 2026</p>
-      <div class="hero-dot"></div>
+    <div class="hero-top">
+      <span class="hero-tag">✦ Save the Date ✦</span>
     </div>
-    <p class="hero-place">Tropea, Calabria</p>
+    <div class="hero-bottom">
+      <h1 class="hero-names">
+        Giuseppe<br/>
+        <span class="hero-amp">&amp;</span><br/>
+        Letizia
+      </h1>
+      <div class="hero-date-row">
+        <div class="hero-dot"></div>
+        <p class="hero-date">23 · 05 · 2026</p>
+        <div class="hero-dot"></div>
+      </div>
+    </div>
   </div>
 
   <a href="#countdown" class="scroll-hint">
