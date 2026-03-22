@@ -6,361 +6,421 @@
   <title>Giuseppe & Letizia — Save the Date</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  /* ─────────────────────────────────────────
+     Reset & tokens
+  ───────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --navy:  #2a4a7f;
-      --blue:  #4a7ab5;
-      --sky:   #a8c8e8;
-      --cream: #f7f4ef;
-      --light: #e8f2fa;
-      --gold:  #c9a84c;
-      --text:  #2a3a52;
+  :root {
+    --navy:  #2a4a7f;
+    --blue:  #4a7ab5;
+    --gold:  #c9a84c;
+    --cream: #f7f4ef;
+    --light: #edf4fb;
+    --text:  #3a4a5c;
+    --muted: #7a8fa8;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', sans-serif; color: var(--text); overflow-x: hidden; background: var(--cream); }
+
+  /* ─────────────────────────────────────────
+     HERO
+  ───────────────────────────────────────── */
+  #hero {
+    min-height: 100svh;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5rem 1.5rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* subtle bubble scatter */
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      radial-gradient(circle 3px at 11% 17%, rgba(74,122,181,.2) 100%, transparent),
+      radial-gradient(circle 5px at 83% 11%, rgba(74,122,181,.16) 100%, transparent),
+      radial-gradient(circle 4px at 68% 79%, rgba(74,122,181,.14) 100%, transparent),
+      radial-gradient(circle 6px at 24% 87%, rgba(74,122,181,.12) 100%, transparent),
+      radial-gradient(circle 3px at 91% 54%, rgba(74,122,181,.1)  100%, transparent),
+      radial-gradient(circle 4px at 55% 4%,  rgba(74,122,181,.12) 100%, transparent);
+  }
+
+  .deco { position: absolute; pointer-events: none; }
+  .jelly-1 { top: 3%;     right: 1.5%; width: 110px; opacity: .14; animation: floatY 6s ease-in-out infinite; }
+  .jelly-2 { top: 5%;     left: 0;     width: 78px;  opacity: .12; animation: floatY 7s ease-in-out infinite 2s; }
+  .jelly-3 { bottom: 17%; left: 1.5%;  width: 68px;  opacity: .11; animation: floatY 8s ease-in-out infinite 4s; }
+  .seaweed-l { bottom: 0; left: 1.5%;  width: 58px;  opacity: .11; transform-origin: bottom; animation: sway 5s ease-in-out infinite; }
+  .seaweed-r { bottom: 0; right: 1.5%; width: 58px;  opacity: .11; transform: scaleX(-1); transform-origin: bottom; animation: sway 5s ease-in-out infinite 1.5s; }
+  .starfish-1 { bottom: 15%; right: 4%; width: 58px; opacity: .13; animation: floatY 9s ease-in-out infinite 1s; }
+  .shell-1    { bottom: 17%; left: 4%;  width: 46px; opacity: .11; animation: floatY 7s ease-in-out infinite 3s; }
+
+  @keyframes floatY { 0%,100%{transform:translateY(0)}  50%{transform:translateY(-11px)} }
+  @keyframes sway   { 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(3deg)} }
+
+  .std-label {
+    font-size: .6rem;
+    letter-spacing: .38em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.4rem;
+  }
+  .hero-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3.8rem, 18vw, 9rem);
+    color: var(--navy);
+    line-height: .95;
+  }
+  .hero-amp { color: var(--blue); }
+
+  .hero-rule {
+    width: 90px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 2rem auto;
+  }
+
+  .hero-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.7rem, 6vw, 2.8rem);
+    color: var(--navy);
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 3.5vw, 1.3rem);
+    color: var(--blue);
+    margin-top: .5rem;
+    letter-spacing: .04em;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: .4rem;
+    text-decoration: none; color: var(--muted);
+  }
+  .scroll-hint span { font-size: .55rem; letter-spacing: .22em; text-transform: uppercase; }
+  .chevron {
+    width: 16px; height: 16px;
+    border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted);
+    transform: rotate(45deg); animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(5px)} }
+
+  /* ─────────────────────────────────────────
+     WAVE HELPERS
+     .wave-X container bg = section above color
+     SVG path fill       = section below color
+  ───────────────────────────────────────── */
+  .wave { display: block; width: 100%; line-height: 0; }
+  .wave svg { display: block; width: 100%; }
+  .wave--cream-navy { background: var(--cream); }
+  .wave--navy-light { background: var(--navy); }
+  .wave--light-navy { background: var(--light); }
+
+  /* ─────────────────────────────────────────
+     COUNTDOWN
+  ───────────────────────────────────────── */
+  #countdown {
+    background: var(--navy);
+    padding: 3.5rem 1.5rem;
+    text-align: center;
+  }
+  #countdown h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: .7rem;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.45);
+    margin-bottom: 2rem;
+  }
+  .cd-grid {
+    display: flex; justify-content: center; align-items: flex-start;
+    gap: clamp(.6rem, 3vw, 2.4rem); flex-wrap: wrap;
+  }
+  .cd-unit { display: flex; flex-direction: column; align-items: center; }
+  .cd-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 12vw, 5.5rem);
+    font-weight: 600; color: #fff; line-height: 1; min-width: 2ch; text-align: center;
+  }
+  .cd-lbl { font-size: .5rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-top: .3rem; }
+  .cd-sep {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 9vw, 4.5rem);
+    color: rgba(255,255,255,.18); line-height: 1; padding-top: .05em;
+  }
+
+  /* ─────────────────────────────────────────
+     SECTION SHARED
+  ───────────────────────────────────────── */
+  .section {
+    padding: 5rem 1.5rem;
+    text-align: center;
+  }
+  .section--light { background: var(--light); }
+  .section--cream { background: var(--cream); }
+
+  .section__inner { max-width: 640px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: .55rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .9rem;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.6rem, 10vw, 5rem);
+    color: var(--navy);
+    line-height: 1.05;
+  }
+  .section-rule {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.4rem auto 0;
+  }
+
+  /* ─────────────────────────────────────────
+     EVENT BLOCK (no card — pure typography)
+  ───────────────────────────────────────── */
+  .events {
+    margin-top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .event { text-align: center; }
+  .event__label {
+    font-size: .55rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: .7rem;
+    display: block;
+  }
+  .event__name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.4rem, 5vw, 2rem);
+    color: var(--navy);
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: .5rem;
+  }
+  .event__time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(.95rem, 3vw, 1.1rem);
+    color: var(--gold);
+    letter-spacing: .1em;
+    margin-bottom: .6rem;
+  }
+  .event__address {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(.95rem, 3vw, 1.1rem);
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: .9rem;
+  }
+  .event__link {
+    font-size: .55rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(42,74,127,.35);
+    padding-bottom: 2px;
+    transition: color .2s, border-color .2s;
+  }
+  .event__link:hover { color: var(--blue); border-color: var(--blue); }
+
+  /* horizontal thin rule between events on mobile */
+  .event + .event {
+    padding-top: 3rem;
+    border-top: 1px solid rgba(74,122,181,.12);
+  }
+
+  .rsvp-note {
+    margin-top: 4rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(.95rem, 3vw, 1.1rem);
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  /* ─────────────────────────────────────────
+     GIFT SECTION
+  ───────────────────────────────────────── */
+  .gift-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 3.5vw, 1.2rem);
+    color: var(--text);
+    line-height: 1.9;
+    margin-bottom: 3rem;
+  }
+
+  .bank-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    text-align: left;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .bank-row {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(74,122,181,.12);
+  }
+  .bank-row:first-child { border-top: 1px solid rgba(74,122,181,.12); }
+  .bank-row__label {
+    font-size: .5rem;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: .3rem;
+    display: block;
+  }
+  .bank-row__value-wrap {
+    display: flex; align-items: center; gap: .6rem;
+  }
+  .bank-row__value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 3vw, 1.15rem);
+    color: var(--navy);
+    font-weight: 600;
+    flex: 1;
+    line-height: 1.3;
+  }
+  .bank-row__value--mono {
+    font-family: 'Montserrat', sans-serif;
+    font-size: .85rem;
+    font-weight: 400;
+    letter-spacing: .06em;
+    color: var(--text);
+  }
+
+  .copy-btn {
+    flex-shrink: 0;
+    background: none;
+    border: 1px solid rgba(74,122,181,.25);
+    border-radius: 3px;
+    padding: .32rem .38rem;
+    cursor: pointer;
+    color: var(--blue);
+    line-height: 0;
+    transition: background .18s, color .18s, border-color .18s;
+  }
+  .copy-btn:hover  { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .copy-btn.copied { background: #2e7d5e;     color: #fff; border-color: #2e7d5e; }
+
+  /* ─────────────────────────────────────────
+     ADDRESSES
+  ───────────────────────────────────────── */
+  .sposi {
+    display: flex;
+    flex-direction: column;
+    gap: 2.8rem;
+    margin-top: 3rem;
+  }
+  .sposo { text-align: center; }
+  .sposo__label {
+    font-size: .5rem; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: .5rem; display: block;
+  }
+  .sposo__name {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2rem, 8vw, 2.8rem);
+    color: var(--navy);
+    margin-bottom: .5rem;
+  }
+  .sposo__address {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(.95rem, 3vw, 1.05rem);
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  /* ─────────────────────────────────────────
+     FOOTER
+  ───────────────────────────────────────── */
+  footer {
+    background: var(--navy);
+    text-align: center;
+    padding: 3rem 1.5rem 3.5rem;
+  }
+  .f-gl {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.2rem, 8vw, 3.2rem);
+    color: rgba(255,255,255,.9);
+    margin-bottom: .6rem;
+  }
+  footer p {
+    font-size: .55rem;
+    letter-spacing: .22em;
+    text-transform: none;
+    color: rgba(255,255,255,.35);
+  }
+
+  /* ─────────────────────────────────────────
+     REVEAL
+  ───────────────────────────────────────── */
+  .reveal {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity .8s ease, transform .8s ease;
+  }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ─────────────────────────────────────────
+     DESKTOP ENHANCEMENTS  (≥ 640px)
+  ───────────────────────────────────────── */
+  @media (min-width: 640px) {
+    .events {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 0;
+    }
+    .event {
+      flex: 1;
+      padding: 0 2.5rem;
+    }
+    .event + .event {
+      padding-top: 0;
+      border-top: none;
+      border-left: 1px solid rgba(74,122,181,.12);
     }
 
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Montserrat', sans-serif; color: var(--text); overflow-x: hidden; }
-
-    /* ══════════════════════════════════════
-       HERO — cream background
-    ══════════════════════════════════════ */
-    #hero {
-      min-height: 100svh;
-      background: var(--cream);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 4rem 2rem 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* subtle bubble dots */
-    #hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background-image:
-        radial-gradient(circle 3px at 12% 18%, rgba(74,122,181,.22) 100%, transparent),
-        radial-gradient(circle 5px at 82% 12%, rgba(74,122,181,.18) 100%, transparent),
-        radial-gradient(circle 4px at 70% 78%, rgba(74,122,181,.16) 100%, transparent),
-        radial-gradient(circle 6px at 25% 88%, rgba(74,122,181,.14) 100%, transparent),
-        radial-gradient(circle 3px at 92% 55%, rgba(74,122,181,.12) 100%, transparent),
-        radial-gradient(circle 5px at 4%  48%, rgba(74,122,181,.16) 100%, transparent),
-        radial-gradient(circle 4px at 55% 5%,  rgba(74,122,181,.14) 100%, transparent);
-      pointer-events: none;
-    }
-
-    /* marine decorations */
-    .deco { position: absolute; pointer-events: none; }
-
-    .jelly-1 { top: 3%;  right: 2%;  width: 120px; opacity: .17; animation: floatY 6s ease-in-out infinite; }
-    .jelly-2 { top: 6%;  left: 0%;   width: 85px;  opacity: .15; animation: floatY 7s ease-in-out infinite 2s; }
-    .jelly-3 { bottom: 18%; left: 2%; width: 75px; opacity: .14; animation: floatY 8s ease-in-out infinite 4s; }
-
-    .seaweed-l { bottom: 0; left: 2%;  width: 65px; opacity: .13; transform-origin: bottom center; animation: sway 5s ease-in-out infinite; }
-    .seaweed-r { bottom: 0; right: 2%; width: 65px; opacity: .13; transform: scaleX(-1); transform-origin: bottom center; animation: sway 5s ease-in-out infinite 1.5s; }
-
-    .starfish-1 { bottom: 16%; right: 5%; width: 65px; opacity: .17; animation: floatY 9s ease-in-out infinite 1s; }
-    .shell-1    { bottom: 18%; left: 5%;  width: 52px; opacity: .14; animation: floatY 7s ease-in-out infinite 3s; }
-
-    @keyframes floatY {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-12px); }
-    }
-    @keyframes sway {
-      0%, 100% { transform: rotate(-3deg); }
-      50%       { transform: rotate(3deg); }
-    }
-
-    /* hero text */
-    .std-label {
-      font-size: .6rem;
-      letter-spacing: .35em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.2rem;
-    }
-    .hero-names {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(4rem, 15vw, 9rem);
-      color: var(--navy);
-      line-height: 1;
-    }
-    .hero-amp { color: var(--blue); }
-
-    .hero-rule {
-      width: 110px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 1.8rem auto;
-    }
-
-    .hero-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.8rem, 5.5vw, 2.8rem);
-      color: var(--navy);
-      font-weight: 600;
-      letter-spacing: .05em;
-    }
-    .hero-sub {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: clamp(1rem, 3vw, 1.3rem);
-      color: var(--blue);
-      margin-top: .6rem;
-      letter-spacing: .04em;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 2.2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: .45rem;
-      text-decoration: none;
-      color: var(--blue);
-    }
-    .scroll-hint span {
-      font-size: .6rem;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-    }
-    .chevron {
-      width: 18px; height: 18px;
-      border-right: 1.5px solid var(--blue);
-      border-bottom: 1.5px solid var(--blue);
-      transform: rotate(45deg);
-      animation: bounce 2s ease-in-out infinite;
-    }
-    @keyframes bounce {
-      0%,100% { transform: rotate(45deg) translateY(0); }
-      50%      { transform: rotate(45deg) translateY(6px); }
-    }
-
-    /* ══════════════════════════════════════
-       WAVE: cream → navy
-       container bg = cream (top), path fill = navy (bottom)
-    ══════════════════════════════════════ */
-    .wave-down {
-      display: block;
-      width: 100%;
-      line-height: 0;
-      background: var(--cream); /* matches section above */
-    }
-    .wave-down svg { display: block; width: 100%; }
-
-    /* ══════════════════════════════════════
-       COUNTDOWN — navy background
-    ══════════════════════════════════════ */
-    #countdown {
-      background: var(--navy);
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-    #countdown h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 300;
-      font-size: clamp(.75rem, 2vw, .9rem);
-      letter-spacing: .3em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.55);
-      margin-bottom: 2.2rem;
-    }
-    .cd-grid {
-      display: flex;
+    .sposi {
+      flex-direction: row;
       justify-content: center;
       align-items: flex-start;
-      gap: clamp(.8rem, 3.5vw, 2.8rem);
-      flex-wrap: wrap;
+      gap: 0;
     }
-    .cd-unit { display: flex; flex-direction: column; align-items: center; }
-    .cd-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3rem, 11vw, 5.5rem);
-      font-weight: 600;
-      color: #fff;
-      line-height: 1;
-      min-width: 2ch;
-      text-align: center;
+    .sposo {
+      flex: 1;
+      max-width: 260px;
+      padding: 0 2.5rem;
     }
-    .cd-lbl {
-      font-size: .55rem;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.45);
-      margin-top: .35rem;
+    .sposo + .sposo {
+      border-left: 1px solid rgba(74,122,181,.12);
     }
-    .cd-colon {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.5rem, 9vw, 4.5rem);
-      color: rgba(255,255,255,.25);
-      line-height: 1;
-      padding-top: .05em;
-    }
-
-    /* ══════════════════════════════════════
-       WAVE: navy → light
-       container bg = navy, path fill = light
-    ══════════════════════════════════════ */
-    .wave-up {
-      display: block;
-      width: 100%;
-      line-height: 0;
-      background: var(--navy);
-    }
-    .wave-up svg { display: block; width: 100%; }
-
-    /* ══════════════════════════════════════
-       DETAILS — light background
-    ══════════════════════════════════════ */
-    #details {
-      background: var(--light);
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-    .eyebrow {
-      font-size: .6rem;
-      letter-spacing: .3em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: .9rem;
-    }
-    .section-name {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2.8rem, 9vw, 5rem);
-      color: var(--navy);
-      margin-bottom: .8rem;
-    }
-    .section-rule {
-      width: 70px; height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 0 auto 3rem;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.6rem;
-      max-width: 820px;
-      margin: 0 auto;
-    }
-    .card {
-      background: #fff;
-      border: 1px solid rgba(74,122,181,.14);
-      border-top: 3px solid var(--navy);
-      border-radius: 4px;
-      padding: 2.2rem 1.8rem;
-      box-shadow: 0 3px 20px rgba(42,74,127,.07);
-      text-align: left;
-    }
-    .card-badge {
-      font-size: .58rem;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      color: var(--blue);
-      margin-bottom: .7rem;
-    }
-    .card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.35rem, 4vw, 1.9rem);
-      color: var(--navy);
-      margin-bottom: .4rem;
-    }
-    .card .time {
-      font-family: 'Cormorant Garamond', serif;
-      font-weight: 600;
-      font-size: 1rem;
-      color: var(--gold);
-      letter-spacing: .08em;
-      margin-bottom: .9rem;
-    }
-    .card p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(.95rem, 2.5vw, 1.08rem);
-      line-height: 1.75;
-      color: #556;
-    }
-    .map-link {
-      display: inline-block;
-      margin-top: 1.2rem;
-      font-size: .6rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: var(--navy);
-      text-decoration: none;
-      border-bottom: 1px solid var(--navy);
-      padding-bottom: 2px;
-      transition: color .2s, border-color .2s;
-    }
-    .map-link:hover { color: var(--blue); border-color: var(--blue); }
-
-    /* ══════════════════════════════════════
-       WAVE: light → navy (footer)
-       container bg = light, path fill = navy
-    ══════════════════════════════════════ */
-    .wave-footer {
-      display: block;
-      width: 100%;
-      line-height: 0;
-      background: var(--light);
-    }
-    .wave-footer svg { display: block; width: 100%; }
-
-    /* ══════════════════════════════════════
-       FOOTER — navy
-    ══════════════════════════════════════ */
-    footer {
-      background: var(--navy);
-      text-align: center;
-      padding: 3rem 2rem 3.5rem;
-    }
-    footer .f-names {
-      font-family: 'Great Vibes', cursive;
-      font-size: clamp(2rem, 7vw, 3rem);
-      color: rgba(255,255,255,.9);
-      margin-bottom: .5rem;
-    }
-    footer p {
-      font-size: .6rem;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.4);
-    }
-
-    /* ══════════════════════════════════════
-       COPY BUTTON
-    ══════════════════════════════════════ */
-    .copy-btn {
-      flex-shrink: 0;
-      background: none;
-      border: 1px solid rgba(74,122,181,.3);
-      border-radius: 3px;
-      padding: .35rem .4rem;
-      cursor: pointer;
-      color: var(--blue);
-      line-height: 0;
-      transition: background .2s, color .2s, border-color .2s;
-      position: relative;
-    }
-    .copy-btn:hover { background: var(--navy); color: #fff; border-color: var(--navy); }
-    .copy-btn.copied { background: #2e7d5e; color: #fff; border-color: #2e7d5e; }
-
-    /* ══════════════════════════════════════
-       REVEAL
-    ══════════════════════════════════════ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity .75s ease, transform .75s ease;
-    }
-    .reveal.in { opacity: 1; transform: none; }
+  }
   </style>
 </head>
 <body>
@@ -368,68 +428,58 @@
 <!-- ══════════ HERO ══════════ -->
 <section id="hero">
 
-  <!-- Jellyfish 1 -->
   <svg class="deco jelly-1" viewBox="0 0 120 165" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="60" cy="52" rx="52" ry="44" stroke="#2a4a7f" stroke-width="1.5"/>
-    <path d="M25 90 Q22 115 27 145" stroke="#2a4a7f" stroke-width="1.1" stroke-linecap="round"/>
-    <path d="M42 95 Q38 122 42 150" stroke="#2a4a7f" stroke-width="1.1" stroke-linecap="round"/>
-    <path d="M60 97 Q60 126 60 155" stroke="#2a4a7f" stroke-width="1.1" stroke-linecap="round"/>
-    <path d="M78 95 Q82 122 78 150" stroke="#2a4a7f" stroke-width="1.1" stroke-linecap="round"/>
-    <path d="M95 90 Q98 115 93 145" stroke="#2a4a7f" stroke-width="1.1" stroke-linecap="round"/>
-    <path d="M18 76 Q60 55 102 76" stroke="#2a4a7f" stroke-width="1" opacity=".35"/>
+    <ellipse cx="60" cy="52" rx="52" ry="44" stroke="#2a4a7f" stroke-width="1.4"/>
+    <path d="M25 90 Q22 115 27 145" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
+    <path d="M42 95 Q38 122 42 150" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
+    <path d="M60 97 Q60 126 60 155" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
+    <path d="M78 95 Q82 122 78 150" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
+    <path d="M95 90 Q98 115 93 145" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
+    <path d="M18 76 Q60 55 102 76"  stroke="#2a4a7f" stroke-width="1" opacity=".3"/>
   </svg>
 
-  <!-- Jellyfish 2 -->
   <svg class="deco jelly-2" viewBox="0 0 120 165" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="60" cy="52" rx="52" ry="44" stroke="#2a4a7f" stroke-width="1.5"/>
+    <ellipse cx="60" cy="52" rx="52" ry="44" stroke="#2a4a7f" stroke-width="1.4"/>
     <path d="M30 90 Q28 114 33 142" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
     <path d="M50 95 Q47 120 51 148" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
     <path d="M72 95 Q75 120 71 148" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
     <path d="M90 91 Q93 113 88 140" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
-    <path d="M18 76 Q60 55 102 76" stroke="#2a4a7f" stroke-width="1" opacity=".35"/>
+    <path d="M18 76 Q60 55 102 76"  stroke="#2a4a7f" stroke-width="1" opacity=".3"/>
   </svg>
 
-  <!-- Jellyfish 3 -->
   <svg class="deco jelly-3" viewBox="0 0 120 165" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="60" cy="52" rx="52" ry="44" stroke="#2a4a7f" stroke-width="1.5"/>
+    <ellipse cx="60" cy="52" rx="52" ry="44" stroke="#2a4a7f" stroke-width="1.4"/>
     <path d="M28 90 Q26 112 31 140" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
     <path d="M48 95 Q45 119 49 146" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
     <path d="M72 95 Q75 118 71 145" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
     <path d="M90 91 Q93 112 88 139" stroke="#2a4a7f" stroke-width="1" stroke-linecap="round"/>
-    <path d="M18 76 Q60 55 102 76" stroke="#2a4a7f" stroke-width="1" opacity=".35"/>
+    <path d="M18 76 Q60 55 102 76"  stroke="#2a4a7f" stroke-width="1" opacity=".3"/>
   </svg>
 
-  <!-- Seaweed left -->
   <svg class="deco seaweed-l" viewBox="0 0 55 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M27 155 Q42 132 22 110 Q6 88 32 66 Q52 48 22 26 Q8 12 28 3" stroke="#2a4a7f" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-    <path d="M27 118 Q50 110 46 94" stroke="#2a4a7f" stroke-width="1.1" stroke-linecap="round" opacity=".55"/>
-    <path d="M26 76 Q4 68 7 52"     stroke="#2a4a7f" stroke-width="1.1" stroke-linecap="round" opacity=".55"/>
+    <path d="M27 155 Q42 132 22 110 Q6 88 32 66 Q52 48 22 26 Q8 12 28 3" stroke="#2a4a7f" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M27 118 Q50 110 46 94" stroke="#2a4a7f" stroke-width="1"   stroke-linecap="round" opacity=".5"/>
+    <path d="M26 76  Q4 68  7 52"   stroke="#2a4a7f" stroke-width="1"   stroke-linecap="round" opacity=".5"/>
   </svg>
-
-  <!-- Seaweed right -->
   <svg class="deco seaweed-r" viewBox="0 0 55 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M27 155 Q42 132 22 110 Q6 88 32 66 Q52 48 22 26 Q8 12 28 3" stroke="#2a4a7f" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-    <path d="M27 118 Q50 110 46 94" stroke="#2a4a7f" stroke-width="1.1" stroke-linecap="round" opacity=".55"/>
-    <path d="M26 76 Q4 68 7 52"     stroke="#2a4a7f" stroke-width="1.1" stroke-linecap="round" opacity=".55"/>
+    <path d="M27 155 Q42 132 22 110 Q6 88 32 66 Q52 48 22 26 Q8 12 28 3" stroke="#2a4a7f" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M27 118 Q50 110 46 94" stroke="#2a4a7f" stroke-width="1"   stroke-linecap="round" opacity=".5"/>
+    <path d="M26 76  Q4 68  7 52"   stroke="#2a4a7f" stroke-width="1"   stroke-linecap="round" opacity=".5"/>
   </svg>
 
-  <!-- Starfish -->
   <svg class="deco starfish-1" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M50 6 L56 37 L87 27 L63 51 L80 81 L50 61 L20 81 L37 51 L13 27 L44 37 Z" stroke="#2a4a7f" stroke-width="1.6" fill="none"/>
+    <path d="M50 6 L56 37 L87 27 L63 51 L80 81 L50 61 L20 81 L37 51 L13 27 L44 37 Z" stroke="#2a4a7f" stroke-width="1.5"/>
   </svg>
-
-  <!-- Shell -->
   <svg class="deco shell-1" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M40 70 Q10 55 12 30 Q14 10 40 8 Q66 10 68 30 Q70 55 40 70Z" stroke="#2a4a7f" stroke-width="1.5"/>
-    <path d="M40 70 Q38 44 40 8"   stroke="#2a4a7f" stroke-width="1"   opacity=".45"/>
-    <path d="M40 70 Q20 50 12 30"  stroke="#2a4a7f" stroke-width="1"   opacity=".35"/>
-    <path d="M40 70 Q60 50 68 30"  stroke="#2a4a7f" stroke-width="1"   opacity=".35"/>
-    <path d="M40 70 Q28 40 18 20"  stroke="#2a4a7f" stroke-width="1"   opacity=".25"/>
-    <path d="M40 70 Q52 40 62 20"  stroke="#2a4a7f" stroke-width="1"   opacity=".25"/>
+    <path d="M40 70 Q10 55 12 30 Q14 10 40 8 Q66 10 68 30 Q70 55 40 70Z" stroke="#2a4a7f" stroke-width="1.4"/>
+    <path d="M40 70 Q38 44 40 8"  stroke="#2a4a7f" stroke-width="1" opacity=".4"/>
+    <path d="M40 70 Q20 50 12 30" stroke="#2a4a7f" stroke-width="1" opacity=".3"/>
+    <path d="M40 70 Q60 50 68 30" stroke="#2a4a7f" stroke-width="1" opacity=".3"/>
+    <path d="M40 70 Q28 40 18 20" stroke="#2a4a7f" stroke-width="1" opacity=".2"/>
+    <path d="M40 70 Q52 40 62 20" stroke="#2a4a7f" stroke-width="1" opacity=".2"/>
   </svg>
 
-  <!-- text -->
-  <p class="std-label">Save the Date</p>
+  <span class="std-label">Save the Date</span>
   <h1 class="hero-names">
     Giuseppe<br/>
     <span class="hero-amp">&amp;</span><br/>
@@ -445,10 +495,10 @@
   </a>
 </section>
 
-<!-- wave: cream → navy -->
-<div class="wave-down">
-  <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 36 Q180 0 360 36 Q540 72 720 36 Q900 0 1080 36 Q1260 72 1440 36 L1440 72 L0 72 Z" fill="#2a4a7f"/>
+<!-- wave cream → navy -->
+<div class="wave wave--cream-navy">
+  <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 32 Q360 0 720 32 Q1080 64 1440 32 L1440 64 L0 64 Z" fill="#2a4a7f"/>
   </svg>
 </div>
 
@@ -457,208 +507,182 @@
   <h2>Mancano ancora</h2>
   <div class="cd-grid">
     <div class="cd-unit"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl">Giorni</span></div>
-    <div class="cd-colon">:</div>
+    <span class="cd-sep">:</span>
     <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><span class="cd-lbl">Ore</span></div>
-    <div class="cd-colon">:</div>
+    <span class="cd-sep">:</span>
     <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl">Minuti</span></div>
-    <div class="cd-colon">:</div>
+    <span class="cd-sep">:</span>
     <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl">Secondi</span></div>
   </div>
 </section>
 
-<!-- wave: navy → light -->
-<div class="wave-up">
-  <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 36 Q180 72 360 36 Q540 0 720 36 Q900 72 1080 36 Q1260 0 1440 36 L1440 72 L0 72 Z" fill="#e8f2fa"/>
+<!-- wave navy → light -->
+<div class="wave wave--navy-light">
+  <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 32 Q360 64 720 32 Q1080 0 1440 32 L1440 64 L0 64 Z" fill="#edf4fb"/>
   </svg>
 </div>
 
-<!-- ══════════ DETAILS ══════════ -->
-<section id="details">
-  <div class="reveal">
-    <p class="eyebrow">Dove & Quando</p>
-    <h2 class="section-name">I festeggiamenti</h2>
+<!-- ══════════ CERIMONIA & RICEVIMENTO ══════════ -->
+<section class="section section--light reveal" id="festeggiamenti">
+  <div class="section__inner">
+    <span class="eyebrow">Dove &amp; Quando</span>
+    <h2 class="section-title">I festeggiamenti</h2>
     <div class="section-rule"></div>
-  </div>
 
-  <div class="cards reveal">
-    <div class="card">
-      <p class="card-badge">Cerimonia</p>
-      <h3>Santuario di Santa Maria dell'Isola</h3>
-      <p class="time">Ore 11:00</p>
-      <p>
-        Via Lungomare<br/>
-        Tropea (VV)
-      </p>
-      <a class="map-link" href="https://maps.google.com/?q=Santuario+di+Santa+Maria+dell+Isola+Tropea" target="_blank" rel="noopener">
-        Apri in Maps →
-      </a>
+    <div class="events">
+
+      <div class="event">
+        <span class="event__label">Cerimonia</span>
+        <p class="event__name">Santuario di Santa Maria dell'Isola</p>
+        <p class="event__time">sabato 23 maggio 2026 — ore 11:00</p>
+        <p class="event__address">Via Lungomare<br/>Tropea (VV)</p>
+        <a class="event__link" href="https://maps.google.com/?q=Santuario+di+Santa+Maria+dell+Isola+Tropea" target="_blank" rel="noopener">Apri in Maps →</a>
+      </div>
+
+      <div class="event">
+        <span class="event__label">Ricevimento</span>
+        <p class="event__name">Le Grotte delle Fate</p>
+        <p class="event__time">pranzo di nozze</p>
+        <p class="event__address">Via Marina, Loc. San Giorgio<br/>Briatico (VV)</p>
+        <a class="event__link" href="https://maps.google.com/?q=Le+Grotte+delle+Fate+Briatico" target="_blank" rel="noopener">Apri in Maps →</a>
+      </div>
+
     </div>
 
-    <div class="card">
-      <p class="card-badge">Ricevimento</p>
-      <h3>Le Grotte delle Fate</h3>
-      <p class="time">Pranzo di nozze</p>
-      <p>
-        Via Marina, Loc. San Giorgio<br/>
-        Briatico (VV)
-      </p>
-      <a class="map-link" href="https://maps.google.com/?q=Le+Grotte+delle+Fate+Briatico" target="_blank" rel="noopener">
-        Apri in Maps →
-      </a>
-    </div>
+    <p class="rsvp-note">
+      È gradita una cortese conferma entro marzo 2026.<br/>
+      Siete pregati di segnalarci eventuali intolleranze alimentari<br/>
+      o esigenze particolari.
+    </p>
   </div>
-
-  <p class="reveal" style="margin-top:3rem; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(.95rem,2.5vw,1.15rem); color:var(--blue); letter-spacing:.03em; line-height:1.9;">
-    È gradita una cortese conferma entro Marzo 2026.<br/>
-    Siete pregati di segnalarci eventuali intolleranze alimentari<br/>
-    o esigenze particolari.
-  </p>
 </section>
 
-<!-- ══════════ GIFT ══════════ -->
-<section id="regalo" style="background:var(--light); padding: 0 2rem 5rem; text-align:center;">
-  <div class="reveal">
-    <div class="section-rule" style="margin-bottom:2.5rem;"></div>
-    <p class="eyebrow">Il regalo</p>
-    <h2 class="section-name">Un pensiero per noi</h2>
+<!-- wave light → cream -->
+<div class="wave" style="background:#edf4fb;">
+  <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 32 Q360 0 720 32 Q1080 64 1440 32 L1440 64 L0 64 Z" fill="#f7f4ef"/>
+  </svg>
+</div>
+
+<!-- ══════════ REGALO ══════════ -->
+<section class="section section--cream reveal" id="regalo">
+  <div class="section__inner">
+    <span class="eyebrow">Il regalo</span>
+    <h2 class="section-title">Un pensiero per noi</h2>
     <div class="section-rule"></div>
-    <p style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:clamp(1rem,2.8vw,1.2rem); color:var(--text); line-height:1.9; max-width:560px; margin:0 auto 2.8rem;">
+
+    <p class="gift-text" style="margin-top:2rem;">
       La vostra presenza è il regalo più grande che possiate farci.<br/>
       Se volete comunque lasciarci un pensiero,<br/>
       vi saremo grati di un contributo alla nostra luna di miele.
     </p>
 
-    <div style="max-width:400px; margin:0 auto; text-align:left; display:flex; flex-direction:column; gap:1.4rem;">
+    <div class="bank-rows">
 
-      <!-- intestatario -->
-      <div>
-        <p style="font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; color:var(--blue); margin-bottom:.35rem;">Intestatario</p>
-        <div style="display:flex; align-items:center; gap:.7rem;">
-          <p id="txt-intestatario" style="font-family:'Cormorant Garamond',serif; font-size:1.15rem; color:var(--navy); font-weight:600; flex:1;">
-            Prestia Letizia &amp; Battaglia Giuseppe
-          </p>
+      <div class="bank-row">
+        <span class="bank-row__label">Intestatario</span>
+        <div class="bank-row__value-wrap">
+          <span class="bank-row__value">Prestia Letizia &amp; Battaglia Giuseppe</span>
           <button class="copy-btn" onclick="copyText('PRESTIA LETIZIA BATTAGLIA GIUSEPPE', this)" title="Copia">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           </button>
         </div>
       </div>
 
-      <div style="height:1px; background:linear-gradient(90deg,transparent,rgba(74,122,181,.2),transparent);"></div>
-
-      <!-- banca -->
-      <div>
-        <p style="font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; color:var(--blue); margin-bottom:.35rem;">Banca</p>
-        <p style="font-family:'Montserrat',sans-serif; font-size:.9rem; color:var(--text);">Banco BPM</p>
+      <div class="bank-row">
+        <span class="bank-row__label">Banca</span>
+        <span class="bank-row__value">Banco BPM</span>
       </div>
 
-      <div style="height:1px; background:linear-gradient(90deg,transparent,rgba(74,122,181,.2),transparent);"></div>
-
-      <!-- iban -->
-      <div>
-        <p style="font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; color:var(--blue); margin-bottom:.35rem;">IBAN</p>
-        <div style="display:flex; align-items:center; gap:.7rem;">
-          <p style="font-family:'Montserrat',sans-serif; font-size:.9rem; color:var(--text); letter-spacing:.06em; flex:1;">
-            IT41 F050 3433 5910 0000 0030 53
-          </p>
+      <div class="bank-row">
+        <span class="bank-row__label">IBAN</span>
+        <div class="bank-row__value-wrap">
+          <span class="bank-row__value bank-row__value--mono">IT41 F050 3433 5910 0000 0030 53</span>
           <button class="copy-btn" onclick="copyText('IT41F0503433591000000003053', this)" title="Copia">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           </button>
         </div>
       </div>
 
-      <div style="height:1px; background:linear-gradient(90deg,transparent,rgba(74,122,181,.2),transparent);"></div>
-
-      <!-- bic -->
-      <div>
-        <p style="font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; color:var(--blue); margin-bottom:.35rem;">BIC / SWIFT</p>
-        <p style="font-family:'Montserrat',sans-serif; font-size:.9rem; color:var(--text); letter-spacing:.06em;">BAPPIT21I74</p>
+      <div class="bank-row">
+        <span class="bank-row__label">BIC / SWIFT</span>
+        <span class="bank-row__value bank-row__value--mono">BAPPIT21I74</span>
       </div>
 
     </div>
   </div>
 </section>
+
+<!-- wave cream → light -->
+<div class="wave" style="background:#f7f4ef;">
+  <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 32 Q360 64 720 32 Q1080 0 1440 32 L1440 64 L0 64 Z" fill="#edf4fb"/>
+  </svg>
+</div>
 
 <!-- ══════════ INDIRIZZI ══════════ -->
-<section id="indirizzi" style="background:var(--light); padding: 0 2rem 5rem; text-align:center;">
-  <div class="reveal">
-    <div class="section-rule" style="margin-bottom:2.5rem;"></div>
-    <p class="eyebrow">Dove trovarci</p>
-    <h2 class="section-name">Gli sposi</h2>
+<section class="section section--light reveal" id="indirizzi">
+  <div class="section__inner">
+    <span class="eyebrow">Dove trovarci</span>
+    <h2 class="section-title">Gli sposi</h2>
     <div class="section-rule"></div>
-    <div style="display:flex; justify-content:center; align-items:flex-start; gap:0; max-width:580px; margin:0 auto; flex-wrap:wrap;">
 
-      <div style="flex:1; min-width:200px; padding:0 2rem;">
-        <p style="font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:.6rem;">La sposa</p>
-        <p style="font-family:'Great Vibes',cursive; font-size:2.2rem; color:var(--navy); margin-bottom:.6rem;">Letizia</p>
-        <p style="font-family:'Cormorant Garamond',serif; font-size:1rem; line-height:1.8; color:#667;">
-          Viale Sandro Pertini, 12<br/>
-          89900, Vibo Valentia (VV)
-        </p>
+    <div class="sposi">
+      <div class="sposo">
+        <span class="sposo__label">La sposa</span>
+        <p class="sposo__name">Letizia</p>
+        <p class="sposo__address">Viale Sandro Pertini, 12<br/>89900, Vibo Valentia (VV)</p>
       </div>
-
-      <div style="width:1px; background:linear-gradient(to bottom, transparent, rgba(74,122,181,.25), transparent); align-self:stretch; margin:0.5rem 0;"></div>
-
-      <div style="flex:1; min-width:200px; padding:0 2rem;">
-        <p style="font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); margin-bottom:.6rem;">Lo sposo</p>
-        <p style="font-family:'Great Vibes',cursive; font-size:2.2rem; color:var(--navy); margin-bottom:.6rem;">Giuseppe</p>
-        <p style="font-family:'Cormorant Garamond',serif; font-size:1rem; line-height:1.8; color:#667;">
-          Via Cancello Rosso, 17/19<br/>
-          89900, Vibo Valentia (VV)
-        </p>
+      <div class="sposo">
+        <span class="sposo__label">Lo sposo</span>
+        <p class="sposo__name">Giuseppe</p>
+        <p class="sposo__address">Via Cancello Rosso, 17/19<br/>89900, Vibo Valentia (VV)</p>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- wave: light → navy (footer) -->
-<div class="wave-footer">
-  <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0 36 Q180 0 360 36 Q540 72 720 36 Q900 0 1080 36 Q1260 72 1440 36 L1440 72 L0 72 Z" fill="#2a4a7f"/>
+<!-- wave light → navy -->
+<div class="wave wave--light-navy">
+  <svg viewBox="0 0 1440 64" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 32 Q360 0 720 32 Q1080 64 1440 32 L1440 64 L0 64 Z" fill="#2a4a7f"/>
   </svg>
 </div>
 
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
-  <p class="f-names">GL</p>
+  <p class="f-gl">GL</p>
   <p>23 · 05 · 2026 &nbsp;·&nbsp; tropea, calabria</p>
 </footer>
 
 <script>
   // Countdown
   function tick() {
-    const target = new Date('2026-05-23T11:00:00');
-    const diff   = target - new Date();
-    if (diff <= 0) {
-      ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
-      return;
-    }
-    const pad = n => String(n).padStart(2,'0');
-    document.getElementById('cd-d').textContent = pad(Math.floor(diff / 86400000));
-    document.getElementById('cd-h').textContent = pad(Math.floor(diff % 86400000 / 3600000));
-    document.getElementById('cd-m').textContent = pad(Math.floor(diff % 3600000  / 60000));
-    document.getElementById('cd-s').textContent = pad(Math.floor(diff % 60000    / 1000));
+    const diff = new Date('2026-05-23T11:00:00') - new Date();
+    if (diff <= 0) { ['cd-d','cd-h','cd-m','cd-s'].forEach(i => document.getElementById(i).textContent = '00'); return; }
+    const p = n => String(n).padStart(2,'0');
+    document.getElementById('cd-d').textContent = p(Math.floor(diff / 86400000));
+    document.getElementById('cd-h').textContent = p(Math.floor(diff % 86400000 / 3600000));
+    document.getElementById('cd-m').textContent = p(Math.floor(diff % 3600000  / 60000));
+    document.getElementById('cd-s').textContent = p(Math.floor(diff % 60000    / 1000));
   }
-  tick();
-  setInterval(tick, 1000);
+  tick(); setInterval(tick, 1000);
 
   // Copy to clipboard
+  const COPY_ICON  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+  const CHECK_ICON = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
   function copyText(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
-      btn.classList.add('copied');
-      btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-      setTimeout(() => {
-        btn.classList.remove('copied');
-        btn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
-      }, 2000);
+      btn.classList.add('copied'); btn.innerHTML = CHECK_ICON;
+      setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = COPY_ICON; }, 2000);
     });
   }
 
   // Scroll reveal
   const io = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }),
-    { threshold: 0.1 }
+    { threshold: 0.08 }
   );
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
