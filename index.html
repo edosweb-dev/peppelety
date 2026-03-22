@@ -278,6 +278,17 @@
 
   .event { text-align: center; }
 
+  .event__photo {
+    width: 100%;
+    max-width: 320px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin: .8rem auto 1.2rem;
+    display: block;
+    box-shadow: 0 4px 20px rgba(42,74,127,.15);
+  }
+
   .event__label {
     display: inline-block;
     font-size: .55rem;
@@ -506,8 +517,8 @@
 <section id="hero">
   <img
     class="hero-photo"
-    src="https://www.turismocalabria.net/wp-content/uploads/2024/04/santa-maria-dell-isola-tropea227678212.jpg"
-    alt="Santuario di Santa Maria dell'Isola, Tropea"
+    src="https://skyblue-hippopotamus-167439.hostingersite.com/pel.jpeg"
+    alt="Giuseppe e Letizia"
   />
   <div class="hero-overlay"></div>
 
@@ -571,6 +582,7 @@
 
       <div class="event">
         <span class="event__label">Cerimonia</span>
+        <img class="event__photo" src="https://www.turismocalabria.net/wp-content/uploads/2024/04/santa-maria-dell-isola-tropea227678212.jpg" alt="Santuario di Santa Maria dell'Isola, Tropea" />
         <p class="event__name">Santuario di Santa Maria dell'Isola</p>
         <p class="event__time">23 maggio 2026 — ore 11:00</p>
         <p class="event__address">Via Lungomare<br/>Tropea (VV)</p>
