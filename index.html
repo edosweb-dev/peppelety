@@ -192,7 +192,24 @@
     transition: opacity 1.5s ease;
     will-change: transform, left, top;
   }
-  .jelly.visible { opacity: .13; }
+  .jelly.visible { opacity: .38; }
+
+  /* Bubbles */
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    border: 1.5px solid rgba(42,74,127,.45);
+    background: rgba(255,255,255,.15);
+    pointer-events: none;
+    animation: bubbleRise var(--bd, 6s) ease-in infinite var(--bdelay, 0s);
+    opacity: 0;
+  }
+  @keyframes bubbleRise {
+    0%   { transform: translateY(0)   translateX(0);      opacity: 0; }
+    10%  { opacity: .7; }
+    80%  { opacity: .5; }
+    100% { transform: translateY(-110%) translateX(var(--bx, 8px)); opacity: 0; }
+  }
 
   /* Bell pulse: contraction + expansion */
   .jelly .bell {
@@ -664,62 +681,62 @@
   <!-- meduse decorative (posizione e movimento gestiti da JS) -->
   <svg class="jelly" style="width:90px;--bp:2.8s;--bpd:0s" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g class="bell">
-      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.07)"/>
-      <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
-      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#2a4a7f" stroke-width=".6" fill="none" opacity=".3"/>
+      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#1a3360" stroke-width="2" fill="rgba(26,51,96,.14)"/>
+      <path d="M22 78 Q60 60 98 78" stroke="#1a3360" stroke-width="1" fill="none" opacity=".6"/>
+      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#1a3360" stroke-width=".8" fill="none" opacity=".4"/>
     </g>
-    <path class="t" d="M30 94 Q24 122 30 148" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M46 99 Q38 128 43 154" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M60 101 Q60 130 60 157" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M74 99 Q82 128 77 154" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M90 94 Q96 122 90 148" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M30 94 Q24 122 30 148" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M46 99 Q38 128 43 154" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M60 101 Q60 130 60 157" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M74 99 Q82 128 77 154" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M90 94 Q96 122 90 148" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
   </svg>
 
   <svg class="jelly" style="width:70px;--bp:2.3s;--bpd:.7s" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g class="bell">
-      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.07)"/>
-      <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
-      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#2a4a7f" stroke-width=".6" fill="none" opacity=".3"/>
+      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#1a3360" stroke-width="2" fill="rgba(26,51,96,.14)"/>
+      <path d="M22 78 Q60 60 98 78" stroke="#1a3360" stroke-width="1" fill="none" opacity=".6"/>
+      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#1a3360" stroke-width=".8" fill="none" opacity=".4"/>
     </g>
-    <path class="t" d="M35 93 Q29 119 35 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M55 99 Q47 125 52 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M75 99 Q83 125 78 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M90 93 Q96 119 90 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M35 93 Q29 119 35 144" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M55 99 Q47 125 52 150" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M75 99 Q83 125 78 150" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M90 93 Q96 119 90 144" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
   </svg>
 
   <svg class="jelly" style="width:80px;--bp:3.1s;--bpd:1.4s" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g class="bell">
-      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.07)"/>
-      <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
-      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#2a4a7f" stroke-width=".6" fill="none" opacity=".3"/>
+      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#1a3360" stroke-width="2" fill="rgba(26,51,96,.14)"/>
+      <path d="M22 78 Q60 60 98 78" stroke="#1a3360" stroke-width="1" fill="none" opacity=".6"/>
+      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#1a3360" stroke-width=".8" fill="none" opacity=".4"/>
     </g>
-    <path class="t" d="M30 94 Q24 120 30 146" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M50 99 Q42 125 47 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M70 99 Q78 125 73 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M88 93 Q94 119 88 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M30 94 Q24 120 30 146" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M50 99 Q42 125 47 150" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M70 99 Q78 125 73 150" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M88 93 Q94 119 88 144" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
   </svg>
 
   <svg class="jelly" style="width:60px;--bp:2.5s;--bpd:2.1s" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g class="bell">
-      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.07)"/>
-      <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
-      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#2a4a7f" stroke-width=".6" fill="none" opacity=".3"/>
+      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#1a3360" stroke-width="2" fill="rgba(26,51,96,.14)"/>
+      <path d="M22 78 Q60 60 98 78" stroke="#1a3360" stroke-width="1" fill="none" opacity=".6"/>
+      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#1a3360" stroke-width=".8" fill="none" opacity=".4"/>
     </g>
-    <path class="t" d="M38 93 Q32 117 38 140" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M60 99 Q60 123 60 146" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M82 93 Q88 117 82 140" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M38 93 Q32 117 38 140" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M60 99 Q60 123 60 146" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M82 93 Q88 117 82 140" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
   </svg>
 
   <svg class="jelly" style="width:55px;--bp:2.9s;--bpd:3.2s" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
     <g class="bell">
-      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.07)"/>
-      <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
-      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#2a4a7f" stroke-width=".6" fill="none" opacity=".3"/>
+      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#1a3360" stroke-width="2" fill="rgba(26,51,96,.14)"/>
+      <path d="M22 78 Q60 60 98 78" stroke="#1a3360" stroke-width="1" fill="none" opacity=".6"/>
+      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#1a3360" stroke-width=".8" fill="none" opacity=".4"/>
     </g>
-    <path class="t" d="M33 93 Q27 117 33 141" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M52 99 Q44 123 49 147" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M70 99 Q78 123 73 147" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M87 93 Q93 117 87 141" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M33 93 Q27 117 33 141" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M52 99 Q44 123 49 147" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M70 99 Q78 123 73 147" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
+    <path class="t" d="M87 93 Q93 117 87 141" stroke="#1a3360" stroke-width="1.6" stroke-linecap="round"/>
   </svg>
 
   <div class="section__inner">
@@ -968,6 +985,26 @@
     }
 
     requestAnimationFrame(loop);
+
+    // Bubbles
+    const BUBBLE_COUNT = 18;
+    for (let i = 0; i < BUBBLE_COUNT; i++) {
+      const b = document.createElement('span');
+      b.className = 'bubble';
+      const size = 4 + Math.random() * 12;
+      const dur  = 5 + Math.random() * 7;
+      const delay = Math.random() * 10;
+      const drift = (Math.random() - 0.5) * 30;
+      b.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random() * 96}%;
+        bottom:${Math.random() * 30}%;
+        --bd:${dur.toFixed(1)}s;
+        --bdelay:${delay.toFixed(1)}s;
+        --bx:${drift.toFixed(0)}px;
+      `;
+      section.appendChild(b);
+    }
   })();
 </script>
 </body>
