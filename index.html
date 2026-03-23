@@ -178,6 +178,50 @@
   }
 
   /* ─────────────────────────────────────────
+     JELLYFISH – Festeggiamenti
+  ───────────────────────────────────────── */
+  #festeggiamenti {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .jelly {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0;
+    animation: jellyFloat var(--dur, 8s) ease-in-out infinite var(--delay, 0s),
+               jellyAppear .6s ease forwards var(--delay, 0s);
+  }
+  .jelly.j1 { top: 4%;   left: 2%;   width: 90px;  --dur: 9s;  --delay: .2s; }
+  .jelly.j2 { top: 10%;  right: 3%;  width: 70px;  --dur: 7s;  --delay: 1.5s; }
+  .jelly.j3 { bottom: 8%; left: 5%;  width: 80px;  --dur:10s;  --delay: 3s; }
+  .jelly.j4 { bottom: 12%; right: 4%; width: 60px; --dur: 6s;  --delay: 2s; }
+  .jelly.j5 { top: 38%;  left: 1%;   width: 55px;  --dur: 8s;  --delay: 4s; }
+
+  @keyframes jellyFloat {
+    0%   { transform: translateY(0)     rotate(-3deg); }
+    25%  { transform: translateY(-14px) rotate( 2deg); }
+    50%  { transform: translateY(-22px) rotate(-1deg); }
+    75%  { transform: translateY(-10px) rotate( 3deg); }
+    100% { transform: translateY(0)     rotate(-3deg); }
+  }
+  @keyframes jellyAppear {
+    from { opacity: 0; }
+    to   { opacity: .13; }
+  }
+
+  /* tentacle wiggle via stroke-dashoffset trick on individual paths */
+  .jelly .t { animation: tentacleWave var(--tw, 3s) ease-in-out infinite; }
+  .jelly .t:nth-child(2) { animation-delay: .2s; }
+  .jelly .t:nth-child(3) { animation-delay: .4s; }
+  .jelly .t:nth-child(4) { animation-delay: .6s; }
+  .jelly .t:nth-child(5) { animation-delay: .8s; }
+  @keyframes tentacleWave {
+    0%,100% { transform: scaleX(1); }
+    50%     { transform: scaleX(1.08); }
+  }
+
+  /* ─────────────────────────────────────────
      WAVE helpers
   ───────────────────────────────────────── */
   .wave { display: block; width: 100%; line-height: 0; }
@@ -612,6 +656,53 @@
 
 <!-- ══════════ DETTAGLI ══════════ -->
 <section class="section section--cream reveal" id="festeggiamenti">
+
+  <!-- meduse decorative -->
+  <svg class="jelly j1" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.06)"/>
+    <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
+    <path class="t" d="M30 92 Q27 118 31 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M45 97 Q41 124 44 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M60 99 Q60 127 60 153" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M75 97 Q79 124 76 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M90 92 Q93 118 89 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="jelly j2" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.06)"/>
+    <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
+    <path class="t" d="M35 93 Q32 116 36 138" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M55 98 Q51 123 54 147" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M75 98 Q78 121 74 145" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M90 94 Q93 114 89 136" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="jelly j3" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.06)"/>
+    <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
+    <path class="t" d="M30 92 Q27 118 31 142" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M50 97 Q46 122 50 146" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M70 97 Q74 120 70 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M88 93 Q91 114 87 136" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="jelly j4" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.06)"/>
+    <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
+    <path class="t" d="M38 93 Q35 115 39 136" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M60 99 Q60 123 60 146" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M82 93 Q85 115 81 136" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="jelly j5" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.06)"/>
+    <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
+    <path class="t" d="M33 92 Q30 116 34 140" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M52 98 Q48 122 52 146" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M70 98 Q73 120 69 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M87 92 Q90 114 86 138" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+  </svg>
+
   <div class="section__inner">
     <span class="eyebrow">Dove &amp; Quando</span>
     <h2 class="section-title">I festeggiamenti</h2>
