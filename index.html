@@ -191,6 +191,7 @@
     opacity: 0;
     transition: opacity 1.5s ease;
     will-change: transform, left, top;
+    z-index: 0;
   }
   .jelly.visible { opacity: .38; }
 
@@ -200,6 +201,7 @@
     border-radius: 50%;
     border: 1.5px solid rgba(42,74,127,.45);
     background: rgba(255,255,255,.15);
+    z-index: 0;
     pointer-events: none;
     animation: bubbleRise var(--bd, 6s) ease-in infinite var(--bdelay, 0s);
     opacity: 0;
@@ -317,7 +319,7 @@
   .section--cream { background: var(--cream); }
   .section--sand  { background: var(--sand); }
 
-  .section__inner { max-width: 640px; margin: 0 auto; }
+  .section__inner { max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
 
   .eyebrow {
     display: block;
@@ -912,27 +914,28 @@
     const section = document.getElementById('festeggiamenti');
     const jellies = Array.from(section.querySelectorAll('.jelly'));
 
-    // Each jellyfish: random start pos + slow drift velocity
-    const state = jellies.map((el, i) => {
+    // Init positions immediately (before fade-in) so there's no jump from 0,0
+    const state = jellies.map((el) => {
       const angle = Math.random() * Math.PI * 2;
-      const speed = 0.22 + Math.random() * 0.18; // px/frame
+      const speed = 0.22 + Math.random() * 0.18;
+      const x = 5 + Math.random() * 85;
+      const y = 5 + Math.random() * 85;
+      el.style.left = x + '%';
+      el.style.top  = y + '%';
       return {
         el,
-        x: Math.random() * 80 + 5,   // % of section width
-        y: Math.random() * 80 + 5,   // % of section height
+        x, y,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed * 0.7, // slightly slower vertical
+        vy: Math.sin(angle) * speed * 0.7,
         turnTimer: 80 + Math.random() * 120,
         frame: 0,
       };
     });
 
-    // Fade in with slight stagger
+    // Fade in with stagger after position is set
     jellies.forEach((el, i) => {
-      setTimeout(() => el.classList.add('visible'), i * 600 + 400);
+      setTimeout(() => el.classList.add('visible'), i * 500 + 300);
     });
-
-    function lerp(a, b, t) { return a + (b - a) * t; }
 
     function loop() {
       const W = section.offsetWidth;
@@ -943,9 +946,8 @@
 
         // Gentle random steering
         if (s.frame >= s.turnTimer) {
-          const dv = 0.04;
-          s.vx += (Math.random() - 0.5) * dv;
-          s.vy += (Math.random() - 0.5) * dv * 0.7;
+          s.vx += (Math.random() - 0.5) * 0.04;
+          s.vy += (Math.random() - 0.5) * 0.028;
           s.frame = 0;
           s.turnTimer = 80 + Math.random() * 120;
         }
@@ -956,28 +958,24 @@
         if (spd > maxSpd) { s.vx = s.vx / spd * maxSpd; s.vy = s.vy / spd * maxSpd; }
         if (spd < minSpd) { s.vx = s.vx / spd * minSpd; s.vy = s.vy / spd * minSpd; }
 
-        // Convert % to px, move, convert back
-        const elW = s.el.offsetWidth;
-        const elH = s.el.offsetHeight;
-        let px = (s.x / 100) * W;
-        let py = (s.y / 100) * H;
-        px += s.vx;
-        py += s.vy;
+        // Work in px; use actual element size for boundary
+        const elW = s.el.offsetWidth  || 80;
+        const elH = s.el.offsetHeight || 107;
+        let px = (s.x / 100) * W + s.vx;
+        let py = (s.y / 100) * H + s.vy;
 
-        // Soft bounce off walls
-        if (px < 0)        { px = 0;        s.vx =  Math.abs(s.vx); }
-        if (px + elW > W)  { px = W - elW;  s.vx = -Math.abs(s.vx); }
-        if (py < 0)        { py = 0;        s.vy =  Math.abs(s.vy); }
-        if (py + elH > H)  { py = H - elH;  s.vy = -Math.abs(s.vy); }
+        // Bounce: keep fully inside section
+        if (px < 0)          { px = 0;          s.vx =  Math.abs(s.vx); }
+        if (px + elW > W)    { px = W - elW;    s.vx = -Math.abs(s.vx); }
+        if (py < 0)          { py = 0;          s.vy =  Math.abs(s.vy); }
+        if (py + elH > H)    { py = H - elH;    s.vy = -Math.abs(s.vy); }
 
         s.x = (px / W) * 100;
         s.y = (py / H) * 100;
 
-        // Tilt slightly in direction of movement (max ±18°)
         const tilt = Math.atan2(s.vx, -Math.abs(s.vy)) * (180 / Math.PI) * 0.5;
-
-        s.el.style.left = s.x + '%';
-        s.el.style.top  = s.y + '%';
+        s.el.style.left      = s.x + '%';
+        s.el.style.top       = s.y + '%';
         s.el.style.transform = `rotate(${tilt}deg)`;
       });
 
