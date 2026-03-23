@@ -189,36 +189,40 @@
     position: absolute;
     pointer-events: none;
     opacity: 0;
-    animation: jellyFloat var(--dur, 8s) ease-in-out infinite var(--delay, 0s),
-               jellyAppear .6s ease forwards var(--delay, 0s);
+    transition: opacity 1.5s ease;
+    will-change: transform, left, top;
   }
-  .jelly.j1 { top: 4%;   left: 2%;   width: 90px;  --dur: 9s;  --delay: .2s; }
-  .jelly.j2 { top: 10%;  right: 3%;  width: 70px;  --dur: 7s;  --delay: 1.5s; }
-  .jelly.j3 { bottom: 8%; left: 5%;  width: 80px;  --dur:10s;  --delay: 3s; }
-  .jelly.j4 { bottom: 12%; right: 4%; width: 60px; --dur: 6s;  --delay: 2s; }
-  .jelly.j5 { top: 38%;  left: 1%;   width: 55px;  --dur: 8s;  --delay: 4s; }
+  .jelly.visible { opacity: .13; }
 
-  @keyframes jellyFloat {
-    0%   { transform: translateY(0)     rotate(-3deg); }
-    25%  { transform: translateY(-14px) rotate( 2deg); }
-    50%  { transform: translateY(-22px) rotate(-1deg); }
-    75%  { transform: translateY(-10px) rotate( 3deg); }
-    100% { transform: translateY(0)     rotate(-3deg); }
+  /* Bell pulse: contraction + expansion */
+  .jelly .bell {
+    transform-box: fill-box;
+    transform-origin: 50% 0%;
+    animation: bellPulse var(--bp, 2.6s) ease-in-out infinite var(--bpd, 0s);
   }
-  @keyframes jellyAppear {
-    from { opacity: 0; }
-    to   { opacity: .13; }
+  @keyframes bellPulse {
+    0%,100% { transform: scaleY(1)    scaleX(1); }
+    40%     { transform: scaleY(.68)  scaleX(1.18); }
+    55%     { transform: scaleY(.65)  scaleX(1.2); }
+    70%     { transform: scaleY(.9)   scaleX(1.05); }
   }
 
-  /* tentacle wiggle via stroke-dashoffset trick on individual paths */
-  .jelly .t { animation: tentacleWave var(--tw, 3s) ease-in-out infinite; }
-  .jelly .t:nth-child(2) { animation-delay: .2s; }
-  .jelly .t:nth-child(3) { animation-delay: .4s; }
-  .jelly .t:nth-child(4) { animation-delay: .6s; }
-  .jelly .t:nth-child(5) { animation-delay: .8s; }
-  @keyframes tentacleWave {
-    0%,100% { transform: scaleX(1); }
-    50%     { transform: scaleX(1.08); }
+  /* Tentacles sway after each pulse */
+  .jelly .t {
+    transform-box: fill-box;
+    transform-origin: 50% 0%;
+    animation: tentacleSway var(--bp, 2.6s) ease-in-out infinite var(--bpd, 0s);
+  }
+  .jelly .t:nth-child(1) { animation-delay: calc(var(--bpd, 0s) + .05s); }
+  .jelly .t:nth-child(2) { animation-delay: calc(var(--bpd, 0s) + .15s); }
+  .jelly .t:nth-child(3) { animation-delay: calc(var(--bpd, 0s) + .25s); }
+  .jelly .t:nth-child(4) { animation-delay: calc(var(--bpd, 0s) + .35s); }
+  .jelly .t:nth-child(5) { animation-delay: calc(var(--bpd, 0s) + .45s); }
+  @keyframes tentacleSway {
+    0%,100% { transform: rotate(0deg)   translateX(0); }
+    30%     { transform: rotate(-6deg)  translateX(-2px); }
+    60%     { transform: rotate( 7deg)  translateX( 2px); }
+    80%     { transform: rotate(-3deg)  translateX(-1px); }
   }
 
   /* ─────────────────────────────────────────
@@ -657,50 +661,65 @@
 <!-- ══════════ DETTAGLI ══════════ -->
 <section class="section section--cream reveal" id="festeggiamenti">
 
-  <!-- meduse decorative -->
-  <svg class="jelly j1" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.06)"/>
-    <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
-    <path class="t" d="M30 92 Q27 118 31 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M45 97 Q41 124 44 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M60 99 Q60 127 60 153" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M75 97 Q79 124 76 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M90 92 Q93 118 89 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- meduse decorative (posizione e movimento gestiti da JS) -->
+  <svg class="jelly" style="width:90px;--bp:2.8s;--bpd:0s" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g class="bell">
+      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.07)"/>
+      <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
+      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#2a4a7f" stroke-width=".6" fill="none" opacity=".3"/>
+    </g>
+    <path class="t" d="M30 94 Q24 122 30 148" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M46 99 Q38 128 43 154" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M60 101 Q60 130 60 157" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M74 99 Q82 128 77 154" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M90 94 Q96 122 90 148" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
   </svg>
 
-  <svg class="jelly j2" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.06)"/>
-    <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
-    <path class="t" d="M35 93 Q32 116 36 138" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M55 98 Q51 123 54 147" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M75 98 Q78 121 74 145" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M90 94 Q93 114 89 136" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+  <svg class="jelly" style="width:70px;--bp:2.3s;--bpd:.7s" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g class="bell">
+      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.07)"/>
+      <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
+      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#2a4a7f" stroke-width=".6" fill="none" opacity=".3"/>
+    </g>
+    <path class="t" d="M35 93 Q29 119 35 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M55 99 Q47 125 52 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M75 99 Q83 125 78 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M90 93 Q96 119 90 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
   </svg>
 
-  <svg class="jelly j3" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.06)"/>
-    <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
-    <path class="t" d="M30 92 Q27 118 31 142" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M50 97 Q46 122 50 146" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M70 97 Q74 120 70 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M88 93 Q91 114 87 136" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+  <svg class="jelly" style="width:80px;--bp:3.1s;--bpd:1.4s" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g class="bell">
+      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.07)"/>
+      <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
+      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#2a4a7f" stroke-width=".6" fill="none" opacity=".3"/>
+    </g>
+    <path class="t" d="M30 94 Q24 120 30 146" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M50 99 Q42 125 47 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M70 99 Q78 125 73 150" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M88 93 Q94 119 88 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
   </svg>
 
-  <svg class="jelly j4" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.06)"/>
-    <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
-    <path class="t" d="M38 93 Q35 115 39 136" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+  <svg class="jelly" style="width:60px;--bp:2.5s;--bpd:2.1s" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g class="bell">
+      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.07)"/>
+      <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
+      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#2a4a7f" stroke-width=".6" fill="none" opacity=".3"/>
+    </g>
+    <path class="t" d="M38 93 Q32 117 38 140" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
     <path class="t" d="M60 99 Q60 123 60 146" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M82 93 Q85 115 81 136" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M82 93 Q88 117 82 140" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
   </svg>
 
-  <svg class="jelly j5" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.06)"/>
-    <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
-    <path class="t" d="M33 92 Q30 116 34 140" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M52 98 Q48 122 52 146" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M70 98 Q73 120 69 144" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
-    <path class="t" d="M87 92 Q90 114 86 138" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+  <svg class="jelly" style="width:55px;--bp:2.9s;--bpd:3.2s" viewBox="0 0 120 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g class="bell">
+      <ellipse cx="60" cy="52" rx="50" ry="42" stroke="#2a4a7f" stroke-width="1.5" fill="rgba(42,74,127,.07)"/>
+      <path d="M22 78 Q60 60 98 78" stroke="#2a4a7f" stroke-width="1" fill="none" opacity=".5"/>
+      <ellipse cx="60" cy="40" rx="28" ry="18" stroke="#2a4a7f" stroke-width=".6" fill="none" opacity=".3"/>
+    </g>
+    <path class="t" d="M33 93 Q27 117 33 141" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M52 99 Q44 123 49 147" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M70 99 Q78 123 73 147" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
+    <path class="t" d="M87 93 Q93 117 87 141" stroke="#2a4a7f" stroke-width="1.2" stroke-linecap="round"/>
   </svg>
 
   <div class="section__inner">
@@ -870,6 +889,86 @@
     { threshold: 0.08 }
   );
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Jellyfish swimming engine
+  (function () {
+    const section = document.getElementById('festeggiamenti');
+    const jellies = Array.from(section.querySelectorAll('.jelly'));
+
+    // Each jellyfish: random start pos + slow drift velocity
+    const state = jellies.map((el, i) => {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 0.22 + Math.random() * 0.18; // px/frame
+      return {
+        el,
+        x: Math.random() * 80 + 5,   // % of section width
+        y: Math.random() * 80 + 5,   // % of section height
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed * 0.7, // slightly slower vertical
+        turnTimer: 80 + Math.random() * 120,
+        frame: 0,
+      };
+    });
+
+    // Fade in with slight stagger
+    jellies.forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 600 + 400);
+    });
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function loop() {
+      const W = section.offsetWidth;
+      const H = section.offsetHeight;
+
+      state.forEach(s => {
+        s.frame++;
+
+        // Gentle random steering
+        if (s.frame >= s.turnTimer) {
+          const dv = 0.04;
+          s.vx += (Math.random() - 0.5) * dv;
+          s.vy += (Math.random() - 0.5) * dv * 0.7;
+          s.frame = 0;
+          s.turnTimer = 80 + Math.random() * 120;
+        }
+
+        // Clamp speed
+        const spd = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+        const maxSpd = 0.42, minSpd = 0.1;
+        if (spd > maxSpd) { s.vx = s.vx / spd * maxSpd; s.vy = s.vy / spd * maxSpd; }
+        if (spd < minSpd) { s.vx = s.vx / spd * minSpd; s.vy = s.vy / spd * minSpd; }
+
+        // Convert % to px, move, convert back
+        const elW = s.el.offsetWidth;
+        const elH = s.el.offsetHeight;
+        let px = (s.x / 100) * W;
+        let py = (s.y / 100) * H;
+        px += s.vx;
+        py += s.vy;
+
+        // Soft bounce off walls
+        if (px < 0)        { px = 0;        s.vx =  Math.abs(s.vx); }
+        if (px + elW > W)  { px = W - elW;  s.vx = -Math.abs(s.vx); }
+        if (py < 0)        { py = 0;        s.vy =  Math.abs(s.vy); }
+        if (py + elH > H)  { py = H - elH;  s.vy = -Math.abs(s.vy); }
+
+        s.x = (px / W) * 100;
+        s.y = (py / H) * 100;
+
+        // Tilt slightly in direction of movement (max ±18°)
+        const tilt = Math.atan2(s.vx, -Math.abs(s.vy)) * (180 / Math.PI) * 0.5;
+
+        s.el.style.left = s.x + '%';
+        s.el.style.top  = s.y + '%';
+        s.el.style.transform = `rotate(${tilt}deg)`;
+      });
+
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+  })();
 </script>
 </body>
 </html>
