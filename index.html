@@ -524,6 +524,110 @@
   .copy-btn.copied { background: #4caf82;       color: #fff; border-color: #4caf82; }
 
   /* ─────────────────────────────────────────
+     DEDICA FORM
+  ───────────────────────────────────────── */
+  .dedica-intro {
+    font-size: .95rem;
+    color: var(--muted);
+    line-height: 1.8;
+    font-weight: 300;
+    margin: 2rem auto 2.5rem;
+    max-width: 440px;
+  }
+
+  .dedica-form {
+    max-width: 440px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    text-align: left;
+  }
+
+  .dedica-field label {
+    display: block;
+    font-size: .5rem;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 700;
+    margin-bottom: .4rem;
+  }
+
+  .dedica-field input,
+  .dedica-field textarea {
+    width: 100%;
+    font-family: 'Nunito', sans-serif;
+    font-size: .95rem;
+    color: var(--text);
+    background: rgba(255,255,255,.7);
+    border: 1.5px solid rgba(74,122,181,.18);
+    border-radius: 10px;
+    padding: .8rem 1rem;
+    transition: border-color .2s, box-shadow .2s;
+    resize: vertical;
+  }
+  .dedica-field input:focus,
+  .dedica-field textarea:focus {
+    outline: none;
+    border-color: var(--sky);
+    box-shadow: 0 0 0 3px rgba(168,200,232,.3);
+  }
+  .dedica-field input::placeholder,
+  .dedica-field textarea::placeholder {
+    color: var(--muted);
+    opacity: .5;
+  }
+
+  .dedica-field textarea { min-height: 120px; }
+
+  .dedica-submit {
+    align-self: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: .65rem;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--navy);
+    border: none;
+    border-radius: 100px;
+    padding: .9rem 2.8rem;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+  }
+  .dedica-submit:hover { background: var(--blue); }
+  .dedica-submit:active { transform: scale(.97); }
+  .dedica-submit:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+  }
+
+  .dedica-success {
+    display: none;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  .dedica-success.show { display: block; }
+  .dedica-success__icon {
+    font-size: 2.5rem;
+    margin-bottom: .8rem;
+  }
+  .dedica-success__title {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: .5rem;
+  }
+  .dedica-success__text {
+    font-size: .95rem;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ─────────────────────────────────────────
      ADDRESSES
   ───────────────────────────────────────── */
   .sposi {
@@ -840,6 +944,56 @@
   </svg>
 </div>
 
+<!-- ══════════ DEDICA ══════════ -->
+<section class="section section--cream reveal" id="dedica">
+  <div class="section__inner">
+    <span class="eyebrow">Libro degli ospiti</span>
+    <h2 class="section-title">Una dedica per noi</h2>
+    <div class="section-rule"></div>
+
+    <p class="dedica-intro">
+      Lasciateci un pensiero, un augurio o un ricordo speciale.<br/>
+      Sarà il regalo più bello da rileggere insieme.
+    </p>
+
+    <!-- ⚠️ Sostituire TUAEMAIL@ESEMPIO.COM con l'email reale -->
+    <form class="dedica-form" id="dedica-form"
+          action="https://formsubmit.co/giuseppe.battaglia231@outlook.it" method="POST">
+
+      <!-- FormSubmit config -->
+      <input type="hidden" name="_subject" value="Nuova dedica per Giuseppe & Letizia">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none">
+
+      <div class="dedica-field">
+        <label for="dedica-nome">Il vostro nome</label>
+        <input type="text" id="dedica-nome" name="nome" placeholder="Es. Marco e Giulia" required />
+      </div>
+
+      <div class="dedica-field">
+        <label for="dedica-msg">Il vostro pensiero</label>
+        <textarea id="dedica-msg" name="messaggio" placeholder="Scrivete qui il vostro augurio..." required></textarea>
+      </div>
+
+      <button type="submit" class="dedica-submit" id="dedica-btn">Invia dedica</button>
+    </form>
+
+    <div class="dedica-success" id="dedica-ok">
+      <div class="dedica-success__icon">💌</div>
+      <p class="dedica-success__title">Grazie di cuore!</p>
+      <p class="dedica-success__text">Il vostro pensiero è stato inviato.<br/>Non vediamo l'ora di leggerlo!</p>
+    </div>
+  </div>
+</section>
+
+<!-- wave cream → cream (indirizzi) -->
+<div class="wave" style="background:#f8f5f0;">
+  <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 24 Q360 0 720 24 Q1080 48 1440 24 L1440 48 L0 48 Z" fill="#f8f5f0"/>
+  </svg>
+</div>
+
 <!-- ══════════ INDIRIZZI ══════════ -->
 <section class="section section--cream reveal" id="indirizzi">
   <div class="section__inner">
@@ -901,6 +1055,35 @@
       setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = COPY_ICON; }, 2000);
     });
   }
+
+  // Dedica form (AJAX submit)
+  const dedicaForm = document.getElementById('dedica-form');
+  dedicaForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('dedica-btn');
+    btn.disabled = true;
+    btn.textContent = 'Invio in corso...';
+
+    fetch(dedicaForm.action, {
+      method: 'POST',
+      body: new FormData(dedicaForm),
+      headers: { 'Accept': 'application/json' }
+    }).then(r => {
+      if (r.ok || r.status === 200) {
+        dedicaForm.style.display = 'none';
+        document.querySelector('.dedica-intro').style.display = 'none';
+        document.getElementById('dedica-ok').classList.add('show');
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Invia dedica';
+        alert('Si è verificato un errore. Riprova tra poco!');
+      }
+    }).catch(() => {
+      btn.disabled = false;
+      btn.textContent = 'Invia dedica';
+      alert('Errore di connessione. Riprova tra poco!');
+    });
+  });
 
   // Scroll reveal
   const io = new IntersectionObserver(
