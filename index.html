@@ -921,7 +921,7 @@
       <div class="bank-row">
         <span class="bank-row__label">IBAN</span>
         <div class="bank-row__value-wrap">
-          <span class="bank-row__value bank-row__value--mono">IT41 F050 3433 5910 0000 0030 53</span>
+          <span class="bank-row__value bank-row__value--mono">IT41F0503433591000000003053</span>
           <button class="copy-btn" onclick="copyText('IT41F0503433591000000003053', this)" title="Copia">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
           </button>
@@ -956,15 +956,11 @@
       Sarà il regalo più bello da rileggere insieme.
     </p>
 
-    <!-- ⚠️ Sostituire TUAEMAIL@ESEMPIO.COM con l'email reale -->
     <form class="dedica-form" id="dedica-form"
-          action="https://formsubmit.co/giuseppe.battaglia231@outlook.it,letizia.prestiak17@gmail.com" method="POST">
+          action="/api/dedica" method="POST">
 
-      <!-- FormSubmit config -->
-      <input type="hidden" name="_subject" value="Nuova dedica per Giuseppe & Letizia">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="text" name="_honey" style="display:none">
+      <!-- honeypot anti-spam -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 
       <div class="dedica-field">
         <label for="dedica-nome">Il vostro nome</label>
@@ -1056,7 +1052,7 @@
     });
   }
 
-  // Dedica form (AJAX submit)
+  // Dedica form (AJAX submit -> Vercel Function -> Resend)
   const dedicaForm = document.getElementById('dedica-form');
   dedicaForm.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -1064,12 +1060,16 @@
     btn.disabled = true;
     btn.textContent = 'Invio in corso...';
 
-    fetch(dedicaForm.action, {
+    const payload = Object.fromEntries(new FormData(dedicaForm).entries());
+
+    fetch('/api/dedica', {
       method: 'POST',
-      body: new FormData(dedicaForm),
-      headers: { 'Accept': 'application/json' }
-    }).then(r => {
-      if (r.ok || r.status === 200) {
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(async r => {
+      let json = null;
+      try { json = await r.json(); } catch (_) {}
+      if (r.ok && json && json.success === true) {
         dedicaForm.style.display = 'none';
         document.querySelector('.dedica-intro').style.display = 'none';
         document.getElementById('dedica-ok').classList.add('show');

@@ -1,0 +1,10 @@
+{
+  "name": "peppelety",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Save-the-date Giuseppe & Letizia (23/05/2026)",
+  "dependencies": {
+    "resend": "^4.0.0"
+  }
+}
